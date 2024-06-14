@@ -25,7 +25,7 @@ CREATE TABLE `stu` (
     `name` VARCHAR(20) NOT NULL,
     `gender` CHAR(2) NOT NULL,
     `sno` CHAR(12) NOT NULL UNIQUE PRIMARY KEY,
-    `sdept` VARCHAR(12) DEFAULT NULL
+    `major` VARCHAR(12) DEFAULT NULL
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 创建 course 表
@@ -49,6 +49,10 @@ CREATE TABLE `sc` (
 
 -- 插入 user_admin 表数据
 INSERT INTO `user_admin` (`username`, `password`) VALUES ('admin', '123');
+-- 插入 user_tch 表数据
+INSERT INTO `user_tch` (`username`, `password`) VALUES ('tch', '123');
+-- 插入 user_stu 表数据
+INSERT INTO `user_stu` (`username`, `password`) VALUES ('stu', '123');
 
 -- 插入 course 表数据
 INSERT INTO `course` (`cno`, `cname`, `cteacher`, `credit`) VALUES
@@ -59,18 +63,18 @@ INSERT INTO `course` (`cno`, `cname`, `cteacher`, `credit`) VALUES
 ('0005', '英语', '陈老师', 2),
 ('0006', '高等数学', '刘老师', 1),
 ('0007', '软件工程', '孙老师', 2),
-('0008', '大数据导论', '周老师', 3),
-('0009', '面向对象程序设计', '吴老师', 4);
+('0008', '算法导论', '周老师', 3),
+('0009', 'Java面向对象程序设计', '吴老师', 4);
 
 -- 插入 stu 表数据
-INSERT INTO `stu` (`name`, `gender`, `sno`, `sdept`) VALUES
-('丘处机', '男', '202220010401', '信息'),
-('讲道理', '男', '202220010402', '软件'),
-('张青平', '男', '202220010403', '计算机'),
-('钱忠理', '女', '202220010404', '网安'),
-('孙阳洋', '男', '202220010405', '信息'),
-('郭小斌', '女', '202220010406', '信息'),
-('张玲珑', '女', '202220010407', '计算机');
+INSERT INTO `stu` (`name`, `gender`, `sno`, `major`) VALUES
+('王大勇', '男', '202220010401', '计算机科学与技术'),
+('李志成', '男', '202220010402', '软件工程'),
+('赵小明', '男', '202220010403', '计算机科学与技术'),
+('刘慧敏', '女', '202220010404', '物联网工程'),
+('陈光明', '男', '202220010405', '智能科学与技术'),
+('吴小丽', '女', '202220010406', '智能科学与技术'),
+('林美玲', '女', '202220010407', '计算机科学与技术');
 
 -- 插入 sc 表数据
 INSERT INTO `sc` (`sno`, `cno`, `score`) VALUES

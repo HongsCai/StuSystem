@@ -24,42 +24,38 @@ public class JdbcHelper implements JdbcConfig {
         }
     }
 
-    public User getUser(User user) {
+    public User getUser(User user) throws SQLException {
         User newUser = new User();
-        try {
-            if (user.getType().equals("学生")) ps = ct.prepareStatement("select * from user_stu where username=?");
-            else if (user.getType().equals("教师")) ps = ct.prepareStatement("select * from user_tch where username=?");
-            else ps = ct.prepareStatement("select * from user_admin where username=?");
-            ps.setString(1, user.getUsername());
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                newUser.setUsername(rs.getString(1));       //设置用户名
-                newUser.setPassword(rs.getString(2));       //设置密码
-                newUser.setType(user.getType());
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (user.getType().equals("学生")) {
+            ps = ct.prepareStatement("SELECT * FROM user_stu WHERE username = ?");
+        } else if (user.getType().equals("教师")) {
+            ps = ct.prepareStatement("SELECT * FROM user_tch WHERE username = ?");
+        } else {
+            ps = ct.prepareStatement("SELECT * FROM user_admin WHERE username = ?");
+        }
+        ps.setString(1, user.getUsername());
+        rs = ps.executeQuery();
+        if (rs.next()) {
+            newUser.setUsername(rs.getString("username"));  //设置用户名
+            newUser.setPassword(rs.getString("password"));  //设置密码
+            newUser.setType(user.getType());
         }
         close();
         return newUser;
     }
 
-    public boolean register(User user) {
+    public boolean register(User user) throws SQLException {
         boolean flag = true;
-        try {
-            if (user.getType().equals("学生"))
-                ps = ct.prepareStatement("insert into user_stu(username,password) values(?,?)");
-            else if (user.getType().equals("教师"))
-                ps = ct.prepareStatement("insert into user_tch(username,password) values(?,?)");
-            else ps = ct.prepareStatement("insert into user_admin(username,password) values(?,?)");
-            ps.setString(1, user.getUsername());
-            ps.setString(2, user.getPassword());
-            if (ps.executeUpdate() != 1) {
-                flag = false;
-            }
-        } catch (SQLException e) {
+        if (user.getType().equals("学生"))
+            ps = ct.prepareStatement("INSERT INTO user_stu(username, password) VALUES(?, ?)");
+        else if (user.getType().equals("教师"))
+            ps = ct.prepareStatement("INSERT INTO user_tch(username, password) VALUES(?, ?)");
+        else
+            ps = ct.prepareStatement("INSERT INTO user_admin(username, password) VALUES(?, ?)");
+        ps.setString(1, user.getUsername());
+        ps.setString(2, user.getPassword());
+        if (ps.executeUpdate() != 1) {
             flag = false;
-            e.printStackTrace();
         }
         close();
         return flag;
@@ -68,10 +64,11 @@ public class JdbcHelper implements JdbcConfig {
     public boolean updatePassword(User user, String new_Password) throws SQLException {
         boolean flag = true;
         if (user.getType().equals("学生"))
-            ps = ct.prepareStatement("update user_stu set password=? where username=?");
+            ps = ct.prepareStatement("UPDATE user_stu SET password=? WHERE username=?");
         else if (user.getType().equals("教师"))
-            ps = ct.prepareStatement("update user_tch set password=? where username=?");
-        else ps = ct.prepareStatement("update user_admin set password=? where username=?");
+            ps = ct.prepareStatement("UPDATE user_tch SET password=? WHERE username=?");
+        else
+            ps = ct.prepareStatement("UPDATE user_admin SET password=? WHERE username=?");
         ps.setString(1, new_Password);
         ps.setString(2, user.getUsername());
         if (ps.executeUpdate() != 1) flag = false;
@@ -79,9 +76,8 @@ public class JdbcHelper implements JdbcConfig {
         return flag;
     }
 
-    public void allCourseQueryPage(DefaultTableModel model) throws SQLException {
-        String sql = "SELECT stu.name, stu.gender, stu.sno, course.cname, sc.score, course.cteacher FROM stu LEFT JOIN sc ON stu.sno = sc.sno LEFT JOIN course ON sc.cno = course.cno";
-        ps = ct.prepareStatement(sql);
+    public void loadCourseAllQuery(DefaultTableModel model, String option, String input) throws SQLException {
+        ps = ct.prepareStatement(OptionHelper.loadCourseAllQuery(option, input));
         rs = ps.executeQuery();
         while (rs.next()) {
             String name = rs.getString("name");
@@ -90,14 +86,14 @@ public class JdbcHelper implements JdbcConfig {
             String subject = rs.getString("cname");
             Integer score = (Integer) rs.getObject("score");
             String teacher = rs.getString("cteacher");
-            if (score == null) {
+            if (score == null)
                 model.addRow(new Object[]{name, gender, sno, subject, "", teacher});
-            } else {
+            else
                 model.addRow(new Object[]{name, gender, sno, subject, score, teacher});
-            }
         }
         close();
     }
+
 
     public void deleteSc(String sno, String subject) throws SQLException {
         String sql = "SELECT cno FROM course WHERE cname = ?";
@@ -116,8 +112,7 @@ public class JdbcHelper implements JdbcConfig {
         ps = ct.prepareStatement(sql);
         ps.setString(1, sno);
         ps.setString(2, cno);
-        int n = ps.executeUpdate();
-        if (n > 0) {
+        if (ps.executeUpdate() > 0) {
             JOptionPane.showMessageDialog(null, "删除成功");
         } else {
             JOptionPane.showMessageDialog(null, "删除失败");
@@ -144,8 +139,7 @@ public class JdbcHelper implements JdbcConfig {
         ps.setString(2, sno);
         ps.setString(3, cno);
 
-        int n = ps.executeUpdate();
-        if (n > 0) {
+        if (ps.executeUpdate() > 0) {
             JOptionPane.showMessageDialog(null, "更新成功");
         } else {
             JOptionPane.showMessageDialog(null, "更新失败");
@@ -153,20 +147,22 @@ public class JdbcHelper implements JdbcConfig {
         close();
     }
 
-    public void stuDetailQueryPage(String sno, DefaultTableModel stuModel, DefaultTableModel scoreModel) throws SQLException {
-        String sql = "SELECT name, gender, sdept FROM stu WHERE sno = ?";
+    public void loadStuDetailQuery(String sno, DefaultTableModel stuModel, DefaultTableModel scoreModel) throws SQLException {
+        String sql = "SELECT name, gender, major FROM stu WHERE sno = ?";
         ps = ct.prepareStatement(sql);
         ps.setString(1, sno);
         rs = ps.executeQuery();
-        while (rs.next()) {
+        if (rs.next()) {
             String name = rs.getString("name");
             String gender = rs.getString("gender");
-            String sdept = rs.getString("sdept");
-            System.out.println(name);
-            stuModel.addRow(new Object[]{name, gender, sdept});
+            String major = rs.getString("major");
+            stuModel.addRow(new Object[]{name, gender, sno, major});
         }
 
-        sql = "SELECT course.cname, sc.score, course.cteacher FROM sc JOIN course ON sc.cno = course.cno WHERE sc.sno = ?";
+        sql = "SELECT course.cname, sc.score, course.cteacher " +
+                "FROM sc " +
+                "LEFT JOIN course ON sc.cno = course.cno " +
+                "WHERE sc.sno = ?";
         ps = ct.prepareStatement(sql);
         ps.setString(1, sno);
         rs = ps.executeQuery();
@@ -174,14 +170,14 @@ public class JdbcHelper implements JdbcConfig {
             String subject = rs.getString("cname");
             Integer score = (Integer) rs.getObject("score");
             String teacher = rs.getString("cteacher");
-            if (score == null) scoreModel.addRow(new Object[]{subject, "", teacher});
-            else scoreModel.addRow(new Object[]{subject, score, teacher});
+            scoreModel.addRow(new Object[]{subject, score, teacher});
         }
         close();
     }
 
-    public void loadCourses(DefaultTableModel courseModel) throws SQLException {
-        ps = ct.prepareStatement("SELECT * FROM course"); // 从 course 表中加载数据
+
+    public void loadCourse(DefaultTableModel courseModel, String option, String input) throws SQLException {
+        ps = ct.prepareStatement(OptionHelper.loadCourse(option, input));
         rs = ps.executeQuery();
         while (rs.next()) {
             String cno = rs.getString("cno");
@@ -214,9 +210,7 @@ public class JdbcHelper implements JdbcConfig {
         ps.setString(2, cname);
         ps.setString(3, cteacher);
         ps.setInt(4, credit);
-
-        int n = ps.executeUpdate();
-        if (n > 0) {
+        if (ps.executeUpdate() > 0) {
             JOptionPane.showMessageDialog(null, "添加课程成功");
         } else {
             JOptionPane.showMessageDialog(null, "添加课程失败");
@@ -229,8 +223,7 @@ public class JdbcHelper implements JdbcConfig {
         String sql = "DELETE FROM course WHERE cno = ?";
         ps = ct.prepareStatement(sql);
         ps.setString(1, cno);
-        int n = ps.executeUpdate();
-        if (n > 0) {
+        if (ps.executeUpdate() > 0) {
             JOptionPane.showMessageDialog(null, "课程删除成功");
         } else {
             JOptionPane.showMessageDialog(null, "课程删除失败");
@@ -238,15 +231,15 @@ public class JdbcHelper implements JdbcConfig {
         close();
     }
 
-    public void loadStudens(DefaultTableModel studensModel) throws SQLException {
-        ps = ct.prepareStatement("SELECT * FROM stu");
+    public void loadStudent(DefaultTableModel studensModel, String option, String input) throws SQLException {
+        ps = ct.prepareStatement(OptionHelper.loadStudent(option, input));
         rs = ps.executeQuery();
         while (rs.next()) {
             String name = rs.getString("name");
             String gender = rs.getString("gender");
             String sno = rs.getString("sno");
-            String sdept = rs.getString("sdept");
-            studensModel.addRow(new Object[]{name, gender, sno, sdept});
+            String major = rs.getString("major");
+            studensModel.addRow(new Object[]{name, gender, sno, major});
         }
         close();
     }
@@ -255,8 +248,7 @@ public class JdbcHelper implements JdbcConfig {
         String sql = "DELETE FROM stu WHERE sno = ?";
         ps = ct.prepareStatement(sql);
         ps.setString(1, sno);
-        int n = ps.executeUpdate();
-        if (n > 0) {
+        if (ps.executeUpdate() > 0) {
             JOptionPane.showMessageDialog(null, "删除学生成功");
         } else {
             JOptionPane.showMessageDialog(null, "删除学生失败");
@@ -264,17 +256,16 @@ public class JdbcHelper implements JdbcConfig {
         close();
     }
 
-    public void addStudent(String name, String gender, String sno, String sdept) throws SQLException {
+    public void addStudent(String name, String gender, String sno, String major) throws SQLException {
 
-        String sql = "INSERT INTO stu (name, gender, sno, sdept) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO stu (name, gender, sno, major) VALUES (?, ?, ?, ?)";
         ps = ct.prepareStatement(sql);
         ps.setString(1, name);
         ps.setString(2, gender);
         ps.setString(3, sno);
-        ps.setString(4, sdept);
+        ps.setString(4, major);
 
-        int n = ps.executeUpdate();
-        if (n > 0) {
+        if (ps.executeUpdate() > 0) {
             JOptionPane.showMessageDialog(null, "添加学生成功");
         } else {
             JOptionPane.showMessageDialog(null, "添加学生失败");

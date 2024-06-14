@@ -83,9 +83,7 @@ public class RegisterPage extends JFrame {
                 new LoginPage();                        // 返回登陆页面
             } else {
                 JOptionPane.showMessageDialog(this, "注册失败！");
-                usernameField.setText("");
-                passwordField.setText("");
-                confirmPasswordField.setText("");
+                resetFields();
             }
         });
         cancelButton.addActionListener(e -> {
@@ -93,5 +91,10 @@ public class RegisterPage extends JFrame {
             dispose();
         });
         setVisible(true);
+    }
+    private void resetFields() {
+        usernameField.setText("");
+        passwordField.setText("");
+        confirmPasswordField.setText("");
     }
 }

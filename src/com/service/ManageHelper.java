@@ -11,25 +11,33 @@ public class ManageHelper {
     private JdbcHelper helper;
 
     public boolean Login(User user) {
-        boolean flag = true;
-        helper = new JdbcHelper();                                  // 创建与数据库通信的对象
-        User newUser = helper.getUser(user);                        // 获得用户数据
-        if (!user.getPassword().equals(newUser.getPassword())) {    // 比对密码与数据库中的对应密码是否一致
-            flag = false;
+        boolean flag = false;
+        helper = new JdbcHelper();                                      // 创建与数据库通信的对象
+        try {
+            User newUser = helper.getUser(user);                        // 获得用户数据
+            if (user.getPassword().equals(newUser.getPassword()))       // 比对密码与数据库中的对应密码是否一致
+                flag = true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "失败", "警告", JOptionPane.WARNING_MESSAGE);
         }
         return flag;
     }
 
     public boolean Register(User user) {
         helper = new JdbcHelper();
-        boolean flag = helper.register(user);
+        boolean flag = false;
+        try {
+            flag = helper.register(user);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "失败", "警告", JOptionPane.WARNING_MESSAGE);
+        }
         return flag;
     }
 
-    public void allCourseQueryPage(DefaultTableModel model) {
+    public void loadCourseAllQuery(DefaultTableModel model, String option, String input) {
         helper = new JdbcHelper();
         try {
-            helper.allCourseQueryPage(model);
+            helper.loadCourseAllQuery(model, option, input);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "失败", "警告", JOptionPane.WARNING_MESSAGE);
         }
@@ -64,28 +72,28 @@ public class ManageHelper {
         return flag;
     }
 
-    public void stuDetailQueryPage(String sno, DefaultTableModel stuModel, DefaultTableModel scoreModel) {
+    public void loadStuDetailQuery(String sno, DefaultTableModel stuModel, DefaultTableModel scoreModel) {
         helper = new JdbcHelper();
         try {
-            helper.stuDetailQueryPage(sno, stuModel, scoreModel);
+            helper.loadStuDetailQuery(sno, stuModel, scoreModel);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "失败", "警告", JOptionPane.WARNING_MESSAGE);
         }
     }
 
-    public void loadStudens(DefaultTableModel studensModel) {
+    public void loadStudens(DefaultTableModel studensModel, String option, String input) {
         helper = new JdbcHelper();
         try {
-            helper.loadStudens(studensModel);
+            helper.loadStudent(studensModel, option, input);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "失败", "警告", JOptionPane.WARNING_MESSAGE);
         }
     }
 
-    public void loadCourses(DefaultTableModel courseModel) {
+    public void loadCourse(DefaultTableModel courseModel, String option, String input) {
         helper = new JdbcHelper();
         try {
-            helper.loadCourses(courseModel);
+            helper.loadCourse(courseModel, option, input);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "失败", "警告", JOptionPane.WARNING_MESSAGE);
         }
@@ -109,7 +117,7 @@ public class ManageHelper {
         }
     }
 
-    public void deleteCourse(String cno){
+    public void deleteCourse(String cno) {
         helper = new JdbcHelper();
         try {
             helper.deleteCourse(cno);
@@ -127,10 +135,10 @@ public class ManageHelper {
         }
     }
 
-    public void addStudent(String name, String gender, String sno, String sdept) {
+    public void addStudent(String name, String gender, String sno, String major) {
         helper = new JdbcHelper();
         try {
-            helper.addStudent(name, gender, sno, sdept);
+            helper.addStudent(name, gender, sno, major);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "失败", "警告", JOptionPane.WARNING_MESSAGE);
         }

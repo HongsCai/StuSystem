@@ -64,8 +64,9 @@ public class LoginPage extends JFrame {
             // 创建用户对象并进行登录验证
             User user = new User(username, password, type);
             if (new ManageHelper().Login(user)) {
-                JOptionPane.showMessageDialog(this, "登陆成功！");
-                dispose(); // 关闭登录窗口
+                JOptionPane.showMessageDialog(this, "登录成功！");
+                dispose();
+
                 // 根据身份类型打开对应的页面
                 if (identityComboBox.getSelectedItem().equals("学生")) {
                     new StudentPage(user);

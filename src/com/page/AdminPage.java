@@ -8,7 +8,7 @@ import java.awt.*;
 public class AdminPage extends JFrame {
     private JMenuBar menuBar; // 应用菜单条
     private JMenu infoMenu, courseMenu, accountMenu; // 学生、课程和账户管理菜单
-    private JMenuItem viewStudentInfoItem, viewGradesItem, changePasswordItem, exitItem, selectCourseItem, viewAllCoursesItem; // 菜单项
+    private JMenuItem manageStudentInfoItem, changePasswordItem, exitItem, selectCourseItem, viewAllCoursesItem; // 菜单项
 
     public AdminPage(User user) {
         setTitle("学生成绩管理系统：" + user.getType() + " " + user.getUsername()); // 设置窗口标题
@@ -26,31 +26,26 @@ public class AdminPage extends JFrame {
         menuBar.add(accountMenu);
 
         // 学生管理菜单项
-        viewGradesItem = new JMenuItem("查询详细信息");
-        viewStudentInfoItem = new JMenuItem("查询全部信息");
+        manageStudentInfoItem = new JMenuItem("学生信息管理");
 
         // 为菜单项添加事件监听器
-        viewGradesItem.addActionListener(e -> {
-            new StuDetailQueryPage(); // 打开学生详细查询页面
-        });
-        viewStudentInfoItem.addActionListener(e -> {
-            new AllStuQueryPage(user); // 打开所有学生查询页面，传入当前用户对象
+        manageStudentInfoItem.addActionListener(e -> {
+            new StuAllQueryPage(user); // 打开所有学生查询页面，传入当前用户对象
         });
 
         // 将菜单项添加到学生管理菜单
-        infoMenu.add(viewGradesItem);
-        infoMenu.add(viewStudentInfoItem);
+        infoMenu.add(manageStudentInfoItem);
 
         // 课程管理菜单项
-        selectCourseItem = new JMenuItem("选课编辑");
-        viewAllCoursesItem = new JMenuItem("查询所有选课信息");
+        selectCourseItem = new JMenuItem("学生课程管理");
+        viewAllCoursesItem = new JMenuItem("学生课程成绩管理");
 
         // 为菜单项添加事件监听器
         selectCourseItem.addActionListener(e -> {
             new CourseEditPage(); // 打开选课编辑页面
         });
         viewAllCoursesItem.addActionListener(e -> {
-            new AllCourseQueryPage(user); // 打开所有选课查询页面，传入当前用户对象
+            new CourseAllQueryPage(user); // 打开所有选课查询页面，传入当前用户对象
         });
 
         // 将菜单项添加到课程管理菜单
@@ -87,7 +82,6 @@ public class AdminPage extends JFrame {
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }
         });
-
         setVisible(true); // 显示窗口
     }
 }

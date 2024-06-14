@@ -6,16 +6,20 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.util.Arrays;
+import java.util.Vector;
 
 public class CourseEditPage extends JFrame {
     private DefaultTableModel courseModel;
     private JTable courseTable;
+    private JComboBox queryList;
     private ManageHelper helper;
+    private String option = "全部", input = "";
 
     public CourseEditPage() {
-        setTitle("课程选择");
-        setLayout(new BorderLayout());
-        setBounds(300, 300, 600, 400);
+        setTitle("学生课程管理");
+        setSize(600, 400);
+        setLocationRelativeTo(null);
 
         // 表头
         String[] columnNames = {"课程号", "课程名", "教师", "学分"};
@@ -29,7 +33,11 @@ public class CourseEditPage extends JFrame {
         creditColumn.setMinWidth(50);
         creditColumn.setMaxWidth(50);
 
+        // 加载课程数据
         helper = new ManageHelper();
+        helper.loadCourse(courseModel, option, input);
+
+        JPanel buttonPanel = new JPanel();
 
         // 添加按钮
         JButton addButton = new JButton("添加课程");
@@ -50,7 +58,7 @@ public class CourseEditPage extends JFrame {
             panel.add(new JLabel("学分："));
             panel.add(creditField);
 
-            int option = JOptionPane.showConfirmDialog(this, panel, "添加课程", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+            int option = JOptionPane.showConfirmDialog(CourseEditPage.this, panel, "添加课程", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
             if (option == JOptionPane.OK_OPTION) {
                 String cno = cnoField.getText();
                 String cname = cnameField.getText();
@@ -58,42 +66,58 @@ public class CourseEditPage extends JFrame {
                 int credit = Integer.parseInt(creditField.getText());
                 helper.addCourse(cno, cname, cteacher, credit);
                 courseModel.addRow(new Object[]{cno, cname, cteacher, credit});
-
             }
         });
+        buttonPanel.add(addButton);
 
         // 删除按钮
         JButton deleteButton = new JButton("删除课程");
         deleteButton.addActionListener(e -> {
             int selectedRow = courseTable.getSelectedRow();
             if (selectedRow != -1) {
-                int option = JOptionPane.showConfirmDialog(this, "确定删除选中的课程吗？", "确认删除", JOptionPane.YES_NO_OPTION);
+                int option = JOptionPane.showConfirmDialog(CourseEditPage.this, "确定删除选中的课程吗？", "确认删除", JOptionPane.YES_NO_OPTION,  JOptionPane.PLAIN_MESSAGE);
                 if (option == JOptionPane.YES_OPTION) {
                     String cno = (String) courseModel.getValueAt(selectedRow, 0);
                     helper.deleteCourse(cno);
-                    courseModel.removeRow(selectedRow);
+                    refreshTable();
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "请先选择要删除的课程");
+                JOptionPane.showMessageDialog(CourseEditPage.this, "请先选择要删除的课程");
             }
         });
-
-        // 添加组件到主框架
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        buttonPanel.add(addButton);
         buttonPanel.add(deleteButton);
 
-        add(scrollPane, BorderLayout.CENTER);
+        // 查询
+        JPanel queryPanel = new JPanel();
+        queryPanel.add(new JLabel("请输入查询信息:"));
 
+        JTextField queryField = new JTextField(15);
+        queryPanel.add(queryField);
+
+        queryList = new JComboBox<String>(new Vector<>(Arrays.asList("全部", "科目", "课程名", "教师")));
+        queryList.addItemListener(e -> queryField.setText(""));
+        queryPanel.add(queryList);
+
+        JButton queryButton = new JButton("查询");
+        queryButton.addActionListener(e -> {
+            option = queryField.getText();
+            input = queryField.getText().trim();
+            refreshTable();
+        });
+        queryPanel.add(queryButton);
+
+        add(queryPanel, BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // 加载课程数据
-        helper.loadCourses(courseModel);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
         setLocationRelativeTo(null);
-
         setVisible(true);
 
+    }
+
+    private void refreshTable() {
+        courseModel.setRowCount(0);                             // 清空表格数据
+        helper.loadCourse(courseModel, option, input);          // 重新加载数据
     }
 }
