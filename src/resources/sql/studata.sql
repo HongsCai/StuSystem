@@ -1,0 +1,91 @@
+-- 创建数据库并使用 utf8mb4 字符集和排序规则
+CREATE DATABASE studata CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE studata;
+
+-- 创建 user_stu 表
+CREATE TABLE `user_stu` (
+    `username` VARCHAR(30) PRIMARY KEY,
+    `password` VARCHAR(30) NOT NULL
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 创建 user_tch 表
+CREATE TABLE `user_tch` (
+    `username` VARCHAR(30) PRIMARY KEY,
+    `password` VARCHAR(30) NOT NULL
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 创建 user_admin 表
+CREATE TABLE `user_admin` (
+    `username` VARCHAR(30) PRIMARY KEY,
+    `password` VARCHAR(30) NOT NULL
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 创建 stu 表
+CREATE TABLE `stu` (
+    `name` VARCHAR(20) NOT NULL,
+    `gender` CHAR(2) NOT NULL,
+    `sno` CHAR(12) NOT NULL UNIQUE PRIMARY KEY,
+    `sdept` VARCHAR(12) DEFAULT NULL
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 创建 course 表
+CREATE TABLE `course` (
+    `cno` CHAR(4) NOT NULL,
+    `cname` VARCHAR(20) DEFAULT NULL,
+    `cteacher` VARCHAR(20) DEFAULT NULL,
+    `credit` INT(11) DEFAULT NULL,
+    PRIMARY KEY (`cno`) USING BTREE
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 创建 sc 表
+CREATE TABLE `sc` (
+    `sno` CHAR(12) NOT NULL,
+    `cno` CHAR(4) NOT NULL,
+    `score` INT(11) DEFAULT NULL,
+    PRIMARY KEY (`sno`, `cno`),
+    CONSTRAINT `fk_sc_cno` FOREIGN KEY (`cno`) REFERENCES `course` (`cno`) ON DELETE CASCADE,
+    CONSTRAINT `fk_sc_sno` FOREIGN KEY (`sno`) REFERENCES `stu` (`sno`) ON DELETE CASCADE
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 插入 user_admin 表数据
+INSERT INTO `user_admin` (`username`, `password`) VALUES ('admin', '123');
+
+-- 插入 course 表数据
+INSERT INTO `course` (`cno`, `cname`, `cteacher`, `credit`) VALUES
+('0001', '计算机应用基础', '张老师', 1),
+('0002', 'C++程序设计', '李老师', 2),
+('0003', '数据库', '王老师', 3),
+('0004', '计算机操作系统', '赵老师', 2),
+('0005', '英语', '陈老师', 2),
+('0006', '高等数学', '刘老师', 1),
+('0007', '软件工程', '孙老师', 2),
+('0008', '大数据导论', '周老师', 3),
+('0009', '面向对象程序设计', '吴老师', 4);
+
+-- 插入 stu 表数据
+INSERT INTO `stu` (`name`, `gender`, `sno`, `sdept`) VALUES
+('丘处机', '男', '202220010401', '信息'),
+('讲道理', '男', '202220010402', '软件'),
+('张青平', '男', '202220010403', '计算机'),
+('钱忠理', '女', '202220010404', '网安'),
+('孙阳洋', '男', '202220010405', '信息'),
+('郭小斌', '女', '202220010406', '信息'),
+('张玲珑', '女', '202220010407', '计算机');
+
+-- 插入 sc 表数据
+INSERT INTO `sc` (`sno`, `cno`, `score`) VALUES
+('202220010401', '0001', 85),
+('202220010401', '0002', 78),
+('202220010401', '0003', 92),
+('202220010402', '0001', 79),
+('202220010402', '0004', 85),
+('202220010403', '0002', 88),
+('202220010403', '0005', 90),
+('202220010404', '0003', 87),
+('202220010404', '0006', 95),
+('202220010405', '0002', 82),
+('202220010405', '0007', 88),
+('202220010406', '0003', 90),
+('202220010406', '0008', 92),
+('202220010407', '0003', 85),
+('202220010407', '0009', 89);
