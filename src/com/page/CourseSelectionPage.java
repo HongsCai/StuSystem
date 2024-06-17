@@ -12,7 +12,6 @@ import java.util.Vector;
 public class CourseSelectionPage extends JFrame {
     private DefaultTableModel courseModel;
     private JTable courseTable;
-    private JButton addButton, queryButton;
     private JTextField snoField, queryField;
     private ManageHelper helper;
     private JComboBox queryList;
@@ -41,7 +40,7 @@ public class CourseSelectionPage extends JFrame {
         JPanel inputPanel = new JPanel();
         JLabel snoLabel = new JLabel("学号:");
         snoField = new JTextField(10);
-        addButton = new JButton("添加");
+        JButton addButton = new JButton("添加");
         inputPanel.add(snoLabel);
         inputPanel.add(snoField);
         inputPanel.add(addButton);
@@ -60,7 +59,7 @@ public class CourseSelectionPage extends JFrame {
         queryList.addItemListener(e -> queryField.setText(""));
         queryPanel.add(queryList);
 
-        queryButton = new JButton("查询");
+        JButton queryButton = new JButton("查询");
         queryButton.addActionListener(e -> {
             option = (String) queryList.getSelectedItem();
             input = queryField.getText().trim();

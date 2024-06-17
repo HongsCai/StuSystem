@@ -75,7 +75,7 @@ public class CourseEditPage extends JFrame {
         deleteButton.addActionListener(e -> {
             int selectedRow = courseTable.getSelectedRow();
             if (selectedRow != -1) {
-                int option = JOptionPane.showConfirmDialog(CourseEditPage.this, "确定删除选中的课程吗？", "确认删除", JOptionPane.YES_NO_OPTION,  JOptionPane.PLAIN_MESSAGE);
+                int option = JOptionPane.showConfirmDialog(CourseEditPage.this, "确定删除选中的课程吗？", "确认删除", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
                 if (option == JOptionPane.YES_OPTION) {
                     String cno = (String) courseModel.getValueAt(selectedRow, 0);
                     helper.deleteCourse(cno);
@@ -87,20 +87,20 @@ public class CourseEditPage extends JFrame {
         });
         buttonPanel.add(deleteButton);
 
-        // 查询
+        // 关键词查询
         JPanel queryPanel = new JPanel();
         queryPanel.add(new JLabel("请输入查询信息:"));
 
         JTextField queryField = new JTextField(15);
         queryPanel.add(queryField);
 
-        queryList = new JComboBox<String>(new Vector<>(Arrays.asList("全部", "科目", "课程名", "教师")));
+        queryList = new JComboBox<String>(new Vector<>(Arrays.asList("全部", "课程号", "课程名", "教师")));
         queryList.addItemListener(e -> queryField.setText(""));
         queryPanel.add(queryList);
 
         JButton queryButton = new JButton("查询");
         queryButton.addActionListener(e -> {
-            option = queryField.getText();
+            option = (String) queryList.getSelectedItem();
             input = queryField.getText().trim();
             refreshTable();
         });

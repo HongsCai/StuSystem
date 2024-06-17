@@ -29,7 +29,6 @@ public class TeacherPage extends JFrame {
         manageStudentInfoItem = new JMenuItem("学生信息管理");
 
         // 为菜单项添加事件监听器
-
         manageStudentInfoItem.addActionListener(e -> {
             new StuAllQueryPage(user); // 打开所有学生查询页面，传入当前用户对象
         });

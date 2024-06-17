@@ -47,6 +47,7 @@ public class CourseAllQueryPage extends JFrame {
         helper = new ManageHelper();
         helper.loadCourseAllQuery(model, option, input);
 
+        // 关键词查询
         JPanel queryPanel = new JPanel();
         queryPanel.add(new JLabel("请输入查询信息:"));
 
@@ -65,10 +66,12 @@ public class CourseAllQueryPage extends JFrame {
         });
         queryPanel.add(queryButton);
 
+        // 面板添加
         add(queryPanel, BorderLayout.NORTH);
         add(p1);
         add(p2);
 
+        // 学生权限以上账号拥有
         if (!user.getType().equals("学生")) {
             setTitle("学生课程成绩管理");
             JPanel p3 = new JPanel();
@@ -123,7 +126,7 @@ public class CourseAllQueryPage extends JFrame {
     }
 
     private void refreshTable() {
-        model.setRowCount(0); // 清空表格数据
-        helper.loadCourseAllQuery(model, option, input); // 重新加载数据
+        model.setRowCount(0);                               // 清空表格数据
+        helper.loadCourseAllQuery(model, option, input);    // 重新加载数据
     }
 }
