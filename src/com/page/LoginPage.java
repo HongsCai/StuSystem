@@ -57,11 +57,11 @@ public class LoginPage extends JFrame {
             String type = (String) identityComboBox.getSelectedItem(); // 获取身份类型
 
             // 校验输入
-            if (username.equals("")) {
+            if (username.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "用户名不能为空", "", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            if (password.equals("")) {
+            if (password.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "密码不能为空", "", JOptionPane.WARNING_MESSAGE);
                 return;
             }

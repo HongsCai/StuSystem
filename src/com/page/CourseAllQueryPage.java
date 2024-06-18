@@ -59,7 +59,7 @@ public class CourseAllQueryPage extends JFrame {
         JTextField queryField = new JTextField(15);
         queryPanel.add(queryField);
 
-        queryList = new JComboBox<String>(new Vector<>(Arrays.asList("全部", "姓名", "性别", "学号", "课程名", "教师")));
+        queryList = new JComboBox<>(new Vector<>(Arrays.asList("全部", "姓名", "性别", "学号", "课程名", "教师")));
         queryList.addItemListener( e-> queryField.setText(""));
         queryPanel.add(queryList);
 

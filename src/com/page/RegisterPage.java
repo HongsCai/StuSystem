@@ -64,15 +64,15 @@ public class RegisterPage extends JFrame {
             String confirmPassword = new String(confirmPasswordField.getPassword());        // 获得确认密码
             String type = (String) identityComboBox.getSelectedItem();                      // 获得用户类型
 
-            if (username.equals("")) {
+            if (username.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "用户名不能为空！", "", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            if (password.equals("")) {
+            if (password.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "密码不能为空！", "", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            if (confirmPassword.equals("")) {
+            if (confirmPassword.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "确认密码不能为空！", "", JOptionPane.WARNING_MESSAGE);
                 return;
             }
