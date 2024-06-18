@@ -1,3 +1,6 @@
+
+CSDN博客：[https://blog.csdn.net/qq947467490/article/details/139754868](https://blog.csdn.net/qq947467490/article/details/139754868)
+
 # 项目配置
 
 可在 src/com/service/JdbcConfig 中进行数据库账号配置，在项目中，我将数据库用户名设置为 root，数据库密码设置为 123456，可以根据需要自行修改。
