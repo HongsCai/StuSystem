@@ -1,15 +1,15 @@
 package com.model;
 
+/**
+ * 表示一个用户模型（用户名 密码 账号类型）
+ * @author HongsCai
+ * @date 2024/6/18
+ */
+
 public class User {
     private String username;	// 用户名
     private String password;	// 密码
     private String type;        // 账号类型
-
-    /**
-     * 表示一个用户模型（用户名 密码 账号类型）
-     * @author HongsCai
-     * @date 2024/6/18
-     */
     
     public User(String username, String password, String type) {
         this.username = username;
