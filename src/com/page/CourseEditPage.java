@@ -80,7 +80,7 @@ public class CourseEditPage extends JFrame {
         deleteButton.addActionListener(e -> {
             int selectedRow = courseTable.getSelectedRow();
             if (selectedRow != -1) {
-                int option = JOptionPane.showConfirmDialog(CourseEditPage.this, "确定删除选中的课程吗？", "确认删除", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+                int option = JOptionPane.showConfirmDialog(CourseEditPage.this, "确定删除选中的课程吗？", "确认删除", JOptionPane.YES_NO_OPTION);
                 if (option == JOptionPane.YES_OPTION) {
                     String cno = (String) courseModel.getValueAt(selectedRow, 0);
                     helper.deleteCourse(cno);

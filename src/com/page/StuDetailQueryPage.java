@@ -18,7 +18,7 @@ public class StuDetailQueryPage extends JFrame {
     public StuDetailQueryPage(String sno) {
         setLayout(new BorderLayout(10, 10));
         setTitle("详细信息");
-        setSize(600, 583);
+        setSize(600, 590);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         String[] stucolumnname = {"姓名", "性别", "学号", "专业"};
