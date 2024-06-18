@@ -4,7 +4,11 @@ import com.model.User;
 
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * 管理员主界面
+ * @author HongsCai
+ * @date 2024/6/18
+ */
 public class AdminPage extends JFrame {
     private JMenuBar menuBar; // 应用菜单条
     private JMenu infoMenu, courseMenu, accountMenu; // 学生、课程和账户管理菜单

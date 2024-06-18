@@ -1,5 +1,11 @@
 package com.service;
 
+/**
+ * 数据库SQL语句的处理分配
+ * @author HongsCai
+ * @date 2024/6/18
+ */
+
 public class OptionHelper {
     public static String loadCourseAllQuery(String option, String input) {
         String sql = "SELECT stu.name, stu.gender, stu.sno, course.cname, sc.score, course.cteacher " +

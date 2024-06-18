@@ -2,12 +2,17 @@ package com.page;
 
 import com.service.ManageHelper;
 import com.model.User;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Vector;
+
+/**
+ * 学生信息管理（查询）界面
+ * @author HongsCai
+ * @date 2024/6/18
+ */
 
 public class StuAllQueryPage extends JFrame {
     private JTable studentTable;

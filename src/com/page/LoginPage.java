@@ -2,9 +2,14 @@ package com.page;
 
 import com.model.User;
 import com.service.ManageHelper;
-
 import javax.swing.*;
 import java.awt.*;
+
+/**
+ * 登录界面
+ * @author HongsCai
+ * @date 2024/6/18
+ */
 
 public class LoginPage extends JFrame {
     private JComboBox<String> identityComboBox;

@@ -2,9 +2,14 @@ package com.page;
 
 import com.model.User;
 import com.service.ManageHelper;
-
 import javax.swing.*;
 import java.awt.*;
+
+/**
+ * 用户修改密码的界面
+ * @author HongsCai
+ * @date 2024/6/18
+ */
 
 public class UpdatePasswordPage extends JFrame {
     private JPasswordField oldPasswordField;

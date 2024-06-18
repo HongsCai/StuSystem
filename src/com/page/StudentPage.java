@@ -1,9 +1,14 @@
 package com.page;
 
 import com.model.User;
-
 import javax.swing.*;
 import java.awt.*;
+
+/**
+ * 学生主界面
+ * @author HongsCai
+ * @date 2024/6/18
+ */
 
 public class StudentPage extends JFrame {
     private JMenuBar menuBar; // 应用菜单条

@@ -1,13 +1,18 @@
 package com.page;
 
 import com.service.ManageHelper;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Vector;
+
+/**
+ * 学生课程管理界面
+ * @author HongsCai
+ * @date 2024/6/18
+ */
 
 public class CourseEditPage extends JFrame {
     private DefaultTableModel courseModel;

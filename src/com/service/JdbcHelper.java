@@ -6,6 +6,12 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 
+/**
+ * 数据库操作
+ * @author HongsCai
+ * @date 2024/6/18
+ */
+
 public class JdbcHelper implements JdbcConfig {
     //定义连接数据库所需要的对象
     private PreparedStatement ps = null;

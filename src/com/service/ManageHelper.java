@@ -7,6 +7,12 @@ import javax.swing.table.DefaultTableModel;
 
 import java.sql.SQLException;
 
+/**
+ * 封装与数据库交互的操作及其异常处理
+ * @author HongsCai
+ * @date 2024/6/18
+ */
+
 public class ManageHelper {
     private JdbcHelper helper;
 

@@ -1,10 +1,15 @@
 package com.page;
 
 import com.service.ManageHelper;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+
+/**
+ * 学生详细信息界面
+ * @author HongsCai
+ * @date 2024/6/18
+ */
 
 public class StuDetailQueryPage extends JFrame {
     private DefaultTableModel stuModel;
