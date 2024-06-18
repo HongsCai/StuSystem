@@ -13,7 +13,7 @@ CSDN博客：[https://blog.csdn.net/qq947467490/article/details/139754868](https
 >
 > 教师： 账号：tch 密码：123
 >
-> 管理员： 账号：stu 密码：123
+> 学生： 账号：stu 密码：123
 
 
 # 开发工具
