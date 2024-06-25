@@ -35,7 +35,7 @@ Navicat 16 | 数据库图形化管理工具
 
 # 功能展示
 ## 登录与注册界面（通用）
-![登录界面](./document/登录界面.jpg)![注册界面](./document/登录界面.jpg)
+![登录界面](./document/登录界面.jpg)![注册界面](./document/注册界面.jpg)
 
 
 <br/>
