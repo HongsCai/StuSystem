@@ -1,18 +1,19 @@
 package com.page;
 
 import com.model.User;
-
 import javax.swing.*;
 import java.awt.*;
+
 /**
  * 管理员主界面
  * @author HongsCai
  * @date 2024/6/18
  */
+
 public class AdminPage extends JFrame {
     private JMenuBar menuBar; // 应用菜单条
     private JMenu infoMenu, courseMenu, accountMenu; // 学生、课程和账户管理菜单
-    private JMenuItem manageStudentInfoItem, changePasswordItem, exitItem, selectCourseItem, viewAllCoursesItem; // 菜单项
+    private JMenuItem manageStudentInfoItem, changePasswordItem, exitItem, manageCourseItem, manageAllCoursesItem; // 菜单项
 
     public AdminPage(User user) {
         setTitle("学生成绩管理系统：" + user.getType() + " " + user.getUsername()); // 设置窗口标题
@@ -41,20 +42,20 @@ public class AdminPage extends JFrame {
         infoMenu.add(manageStudentInfoItem);
 
         // 课程管理菜单项
-        selectCourseItem = new JMenuItem("学生课程管理");
-        viewAllCoursesItem = new JMenuItem("学生课程成绩管理");
+        manageCourseItem = new JMenuItem("学生课程管理");
+        manageAllCoursesItem = new JMenuItem("学生课程成绩管理");
 
         // 为菜单项添加事件监听器
-        selectCourseItem.addActionListener(e -> {
+        manageCourseItem.addActionListener(e -> {
             new CourseEditPage(); // 打开选课编辑页面
         });
-        viewAllCoursesItem.addActionListener(e -> {
+        manageAllCoursesItem.addActionListener(e -> {
             new CourseAllQueryPage(user); // 打开所有选课查询页面，传入当前用户对象
         });
 
         // 将菜单项添加到课程管理菜单
-        courseMenu.add(selectCourseItem);
-        courseMenu.add(viewAllCoursesItem);
+        courseMenu.add(manageCourseItem);
+        courseMenu.add(manageAllCoursesItem);
 
         // 账户管理菜单项
         changePasswordItem = new JMenuItem("修改密码");
