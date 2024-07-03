@@ -28,7 +28,7 @@ Navicat 16 | 数据库图形化管理工具
 <br/>
 
 # 系统结构
-![系统结构图](./document/系统结构图.png)
+![系统结构图](./document/系统结构图.jpg)
 
 <br>
 
@@ -109,7 +109,7 @@ Navicat 16 | 数据库图形化管理工具
 
 # 数据库设置
 ## 数据库E-R图
-![数据库E-R图](./document/E-R图.png)
+![数据库E-R图](./document/数据库E-R图.png)
 
 ## 创建和管理数据库的SQL命令
 
