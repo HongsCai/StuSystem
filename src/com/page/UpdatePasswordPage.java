@@ -89,6 +89,9 @@ public class UpdatePasswordPage extends JFrame {
         add(confirmPasswordPanel);
         add(buttonPanel);
 
+        Image icon = new ImageIcon(StudentPage.class.getResource("/resources/images/icon.png")).getImage();
+        setIconImage(icon);
+
         setVisible(true);
     }
 

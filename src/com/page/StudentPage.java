@@ -88,6 +88,10 @@ public class StudentPage extends JFrame {
             }
         });
 
+
+        Image icon = new ImageIcon(StudentPage.class.getResource("/resources/images/icon.png")).getImage();
+        setIconImage(icon);
+
         setVisible(true); // 显示窗口
     }
 }

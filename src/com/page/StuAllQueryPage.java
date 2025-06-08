@@ -123,6 +123,9 @@ public class StuAllQueryPage extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        Image icon = new ImageIcon(StudentPage.class.getResource("/resources/images/icon.png")).getImage();
+        setIconImage(icon);
+
         setVisible(true);
     }
 

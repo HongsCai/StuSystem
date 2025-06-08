@@ -115,6 +115,9 @@ public class CourseEditPage extends JFrame {
         add(scrollPane, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
+        Image icon = new ImageIcon(StudentPage.class.getResource("/resources/images/icon.png")).getImage();
+        setIconImage(icon);
+
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);

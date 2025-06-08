@@ -100,6 +100,10 @@ public class LoginPage extends JFrame {
         add(passwordPanel);
         add(buttonPanel);
 
+
+        Image icon = new ImageIcon(StudentPage.class.getResource("/resources/images/icon.png")).getImage();
+        setIconImage(icon);
+
         setVisible(true); // 显示窗口
     }
 

@@ -127,6 +127,10 @@ public class CourseAllQueryPage extends JFrame {
             add(p3);
         }
         else setTitle("学生课程成绩查询");
+
+        Image icon = new ImageIcon(StudentPage.class.getResource("/resources/images/icon.png")).getImage();
+        setIconImage(icon);
+
         setVisible(true);
     }
 

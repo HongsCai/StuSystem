@@ -87,6 +87,9 @@ public class CourseSelectionPage extends JFrame {
             else JOptionPane.showMessageDialog(this, "请先选择一门课程");
         });
 
+        Image icon = new ImageIcon(StudentPage.class.getResource("/resources/images/icon.png")).getImage();
+        setIconImage(icon);
+
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);

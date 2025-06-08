@@ -95,6 +95,11 @@ public class RegisterPage extends JFrame {
             new LoginPage();
             dispose();
         });
+
+
+        Image icon = new ImageIcon(StudentPage.class.getResource("/resources/images/icon.png")).getImage();
+        setIconImage(icon);
+
         setVisible(true);
     }
     private void resetFields() {

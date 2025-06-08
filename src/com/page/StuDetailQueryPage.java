@@ -50,6 +50,9 @@ public class StuDetailQueryPage extends JFrame {
         add(p1, BorderLayout.CENTER);
         add(p2, BorderLayout.SOUTH);
 
+        Image icon = new ImageIcon(StudentPage.class.getResource("/resources/images/icon.png")).getImage();
+        setIconImage(icon);
+
         setLocationRelativeTo(null);
         setVisible(true);
     }

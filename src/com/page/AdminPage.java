@@ -87,6 +87,10 @@ public class AdminPage extends JFrame {
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
             }
         });
+
+        Image icon = new ImageIcon(StudentPage.class.getResource("/resources/images/icon.png")).getImage();
+        setIconImage(icon);
+
         setVisible(true); // 显示窗口
     }
 }
