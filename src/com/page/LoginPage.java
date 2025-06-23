@@ -18,6 +18,28 @@ public class LoginPage extends JFrame {
     private JButton loginButton;
     private JButton registerButton;
 
+
+    private static final Font GLOBAL_FONT = new Font("Microsoft YaHei", Font.PLAIN, 14);
+
+    static {
+        // 静态初始化块，在类加载时执行
+        UIManager.put("Button.font", GLOBAL_FONT);
+        UIManager.put("Label.font", GLOBAL_FONT);
+        UIManager.put("TextField.font", GLOBAL_FONT);
+        UIManager.put("PasswordField.font", GLOBAL_FONT);
+        UIManager.put("ComboBox.font", GLOBAL_FONT);
+        UIManager.put("OptionPane.font", GLOBAL_FONT);
+        UIManager.put("CheckBox.font", GLOBAL_FONT);
+
+        // 菜单相关字体设置
+        UIManager.put("MenuBar.font", GLOBAL_FONT);
+        UIManager.put("Menu.font", GLOBAL_FONT);
+        UIManager.put("MenuItem.font", GLOBAL_FONT);
+        UIManager.put("CheckBoxMenuItem.font", GLOBAL_FONT);
+        UIManager.put("RadioButtonMenuItem.font", GLOBAL_FONT);
+        UIManager.put("PopupMenu.font", GLOBAL_FONT);
+    }
+
     public LoginPage() {
         setTitle("学生成绩管理系统登录"); // 设置窗口标题
         setSize(400, 200); // 设置窗口大小
